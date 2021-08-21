@@ -4,26 +4,33 @@
 void printArray(int A[], int n);
 void selectionSort(int A[], int n);
 void insertionSort(int A[], int n);
+void mergeSort(int A[], int p, int r);
 void merge(int A[], int p, int q, int r);
 
 int main(){
     // Variables
-    int A[10] = {7, 10, 3, 1, 5, 13, 8, 12, 4, 6};
-    int n = sizeof(A) / sizeof(int);
+    int A[10] = {12, 9, 3, 7, 14, 11, 6, 2, 10, 5};
+    // int A[10] = {3, 7, 9, 12, 14, 2, 5, 6, 10, 11};
+    // int A[10] = {1, 3, 5, 7, 10, 4, 6, 8, 12, 13};
+    // int A[7] = {3, 5, 7, 1, 4, 6, 8};
+    // int A[4] = {7, 1, 3, 6};
+    int n = sizeof(A) / sizeof(A[0]);
 
     // Showing outputs
-    printf("Array before sorting\n");
-    printArray(A, n);
+    // printf("Array before sorting\n");
+    // printArray(A, n);
 
         // Sorting algorithms
     // selectionSort(A, n);
     // insertionSort(A, n);
+    mergeSort(A, 0, n - 1);
+
+    
+    // merge(A, 0, 4, n);
 
     printf("Array sorted\n");
     printArray(A, n);
-
-    
-
+    return 0;
 
 }
 
@@ -64,30 +71,47 @@ void insertionSort(int A[], int n){
     }
 }
 
+void mergeSort(int A[], int p, int r){
+    // printArray(A, r + 1);
+    if (p < r) {
+        int q = (p + r) / 2;
+        
+
+        mergeSort(A, p, q);
+        mergeSort(A, q + 1, r);
+
+        merge(A, p, q, r + 1);
+    }    
+}        
+
 void merge(int A[], int p, int q, int r){
-    int n1 = q - p;
-    int n2 = r - q;
+    
+    // p = 0; q = 4; r = 9
+    int n1 = q - p + 1; // n1 = 5
+    int n2 = r - q - 1; // n2 = 5
     int B[n1 + 1];
     int C[n2 + 1];
+
     for (int i = 0; i < n1; i++){
-        B[i] = A[i];
+        B[i] = A[i + p];
     }
+
     for (int i = 0; i < n2; i++){
-        C[i] = A[i + q];
+        C[i] = A[i + q + 1];
     }
-    B[n1 + 1] = (int)INFINITY;
-    C[n2 + 1] = (int)INFINITY;
+    
+    B[n1] = (int)INFINITY;
+    C[n2] = (int)INFINITY;
 
     int i = 0;
     int j = 0;
-    for (int k = 0; k < r; k++){
+    for (int k = p; k < r; k++){
         if (B[i] <= C[j]){
             A[k] = B[i];
             i++;
-        } else if(B[i] > C[j]){
+        } else{
             A[k] = C[j];
             j++;
         }
     }
-
 }
