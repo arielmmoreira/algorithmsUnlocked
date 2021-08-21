@@ -24,7 +24,7 @@ int main(){
     printf("Sentinel Linear Search: %d\n", sentinelLinear);
     printf("Recursive Linear Search: %d\n", recursiveLinear);
 
-    // Tests
+    // Binary Search (only if sorted arrays)
 
 }
 

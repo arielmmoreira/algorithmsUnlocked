@@ -6,21 +6,25 @@ void selectionSort(int A[], int n);
 void insertionSort(int A[], int n);
 void mergeSort(int A[], int p, int r);
 void merge(int A[], int p, int q, int r);
+int partition(int A[], int p, int r);
+void quicksort(int A[], int p, int r);
 
 int main(){
     // Variables
-    int A[10] = {12, 9, 3, 7, 14, 11, 6, 2, 10, 5};
-
+    int A[] = {12, 9, 3, 7, 14, 11, 6, 2, 10, 5};
     int n = sizeof(A) / sizeof(A[0]);
 
-    // Showing outputs
     printf("Array before sorting\n");
     printArray(A, n);
 
-        // Sorting algorithms
+    // Sorting algorithms
+
     // selectionSort(A, n);
     // insertionSort(A, n);
-    mergeSort(A, 0, n - 1);
+    // mergeSort(A, 0, n - 1);
+    // quicksort(A, 0, n - 1);
+
+
 
     printf("Array sorted\n");
     printArray(A, n);
@@ -103,5 +107,30 @@ void merge(int A[], int p, int q, int r){
             A[k] = C[j];
             j++;
         }
+    }
+}
+
+int partition(int A[], int p, int r){
+    int q = p;
+    int tmp;
+    for (int i = p; i < r; i++){
+        if (A[i] <= A[r]){
+            tmp = A[q];
+            A[q] = A[i];
+            A[i] = tmp;
+            q++;
+        }
+    }
+    tmp = A[q];
+    A[q] = A[r];
+    A[r] = tmp;
+    return q;
+}
+
+void quicksort(int A[], int p, int r){
+    if (p < r){
+        int q = partition(A, p, r);
+        quicksort(A, p, q - 1);
+        quicksort(A, q + 1, r);
     }
 }
