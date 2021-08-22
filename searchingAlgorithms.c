@@ -4,12 +4,14 @@ int linearSearch(int A[], int n, int x);
 int betterLinearSearch(int A[], int n, int x);
 int sentinelLinearSearch(int A[], int n, int x);
 int recursiveLinearSearch(int A[], int n, int i, int x);
+int binarySearch(int A[], int n, int x);
+int recursiveBinarySearch(int A[], int p, int r, int x);
 
 int main(){
 
     // Variables
     int A[10] = {7, 10, 3, 1, 5, 13, 8, 12, 4, 6};
-    int n = sizeof(A) / sizeof(int);
+    int n = sizeof(A) / sizeof(A[0]);
     int x = 1;
 
     // Calling functions
@@ -24,7 +26,17 @@ int main(){
     printf("Sentinel Linear Search: %d\n", sentinelLinear);
     printf("Recursive Linear Search: %d\n", recursiveLinear);
 
-    // Binary Search (only if sorted arrays)
+    // Binary Search (only with sorted arrays)
+    int B[] = {1, 3, 5, 7, 13, 17, 20, 26, 29};
+    n = sizeof(B) / sizeof(B[0]);
+    x = 29;
+
+    int binary = binarySearch(B, n, x);
+    int recursiveBinary = recursiveBinarySearch(B, 0, n - 1, x);
+
+    printf("Binary Search: %d\n", binary);
+    printf("Recursive Binary Search: %d\n", recursiveBinary);
+
 
 }
 
@@ -70,4 +82,34 @@ int recursiveLinearSearch(int A[], int n, int i, int x){
         return i;
     }
     return recursiveLinearSearch(A, n, i + 1, x);
+}
+
+int binarySearch(int A[], int n, int x){
+    int p = 0;
+    int r = n;
+    while (p <= r){
+        int q = (p + r) / 2;
+        if (A[q] == x){
+            return q;
+        } else if (A[q] > x){
+            r = q - 1;
+        } else {
+            p = q + 1;
+        }
+    }
+    return -1;
+}
+
+int recursiveBinarySearch(int A[], int p, int r, int x){
+    if (p > r){
+        return -1;
+    }
+    int q = (p + r) / 2;
+    if (A[q] == x){
+        return q;
+    } else if (A[q] > x){
+        return recursiveBinarySearch(A, p, q - 1, x);
+    } else {
+        return recursiveBinarySearch(A, q + 1, r, x);
+    }
 }
