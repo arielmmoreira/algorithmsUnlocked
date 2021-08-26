@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<math.h>
 
-void printArray(int A[], int n);
-void selectionSort(int A[], int n);
-void insertionSort(int A[], int n);
-void mergeSort(int A[], int p, int r);
-void merge(int A[], int p, int q, int r);
-int partition(int A[], int p, int r);
-void quicksort(int A[], int p, int r);
+void printArray(int array[], int n);
+void selectionSort(int array[], int n);
+void insertionSort(int array[], int n);
+void mergeSort(int array[], int p, int r);
+void merge(int array[], int p, int q, int r);
+int partition(int array[], int p, int r);
+void quicksort(int array[], int p, int r);
 
 int main(){
     // Variables
@@ -32,66 +32,65 @@ int main(){
 
 }
 
-void printArray(int A[], int n){
-    printf("A = ");
+void printArray(int array[], int n){
     for (int i = 0; i < n; i++){
-        printf("%d ", A[i]);
+        printf("%d ", array[i]);
     }
     printf("\n");
 }
 
-void selectionSort(int A[], int n){
+void selectionSort(int array[], int n){
     int smallest;
     for (int i = 0; i < n; i++){
         smallest = i;
         for (int j = i + 1; j <= n; j++){
-            if (A[j] < A[smallest]){
+            if (array[j] < array[smallest]){
                 smallest = j;
             }
         }
-        int tmp = A[i];
-        A[i] = A[smallest];
-        A[smallest] = tmp;
+        int tmp = array[i];
+        array[i] = array[smallest];
+        array[smallest] = tmp;
     }
 }
 
-void insertionSort(int A[], int n){
+void insertionSort(int array[], int n){
     int key;
     int j;
     for (int i = 1; i < n; i++){
-        key = A[i];
+        key = array[i];
         j = i - 1;
-        while (j >= 0 && A[j] > key){
-            A[j + 1] = A[j];
+        while (j >= 0 && array[j] > key){
+            array[j + 1] = array[j];
             j--;
         }
-        A[j + 1] = key;
+        array[j + 1] = key;
     }
 }
 
-void mergeSort(int A[], int p, int r){
+void mergeSort(int array[], int p, int r){
     if (p < r) {
         int q = (p + r) / 2;
         
-        mergeSort(A, p, q);
-        mergeSort(A, q + 1, r);
+        mergeSort(array, p, q);
+        mergeSort(array, q + 1, r);
 
-        merge(A, p, q, r + 1);
+        merge(array, p, q, r + 1);
     }    
 }        
 
-void merge(int A[], int p, int q, int r){
+void merge(int array[], int p, int q, int r){
     int n1 = q - p + 1;
     int n2 = r - q - 1;
     int B[n1 + 1];
     int C[n2 + 1];
 
     for (int i = 0; i < n1; i++){
-        B[i] = A[i + p];
+        B[i] = array[i + p];
     }
 
     for (int i = 0; i < n2; i++){
-        C[i] = A[i + q + 1];
+        C[i] = array[i + q + 1];
     }
     
     B[n1] = (int)INFINITY;
@@ -101,36 +100,36 @@ void merge(int A[], int p, int q, int r){
     int j = 0;
     for (int k = p; k < r; k++){
         if (B[i] <= C[j]){
-            A[k] = B[i];
+            array[k] = B[i];
             i++;
         } else{
-            A[k] = C[j];
+            array[k] = C[j];
             j++;
         }
     }
 }
 
-int partition(int A[], int p, int r){
+int partition(int array[], int p, int r){
     int q = p;
     int tmp;
     for (int i = p; i < r; i++){
-        if (A[i] <= A[r]){
-            tmp = A[q];
-            A[q] = A[i];
-            A[i] = tmp;
+        if (array[i] <= array[r]){
+            tmp = array[q];
+            array[q] = array[i];
+            array[i] = tmp;
             q++;
         }
     }
-    tmp = A[q];
-    A[q] = A[r];
-    A[r] = tmp;
+    tmp = array[q];
+    array[q] = array[r];
+    array[r] = tmp;
     return q;
 }
 
-void quicksort(int A[], int p, int r){
+void quicksort(int array[], int p, int r){
     if (p < r){
-        int q = partition(A, p, r);
-        quicksort(A, p, q - 1);
-        quicksort(A, q + 1, r);
+        int q = partition(array, p, r);
+        quicksort(array, p, q - 1);
+        quicksort(array, q + 1, r);
     }
 }

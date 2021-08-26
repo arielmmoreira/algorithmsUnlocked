@@ -1,11 +1,11 @@
 #include<stdio.h>
 
-int linearSearch(int A[], int n, int x);
-int betterLinearSearch(int A[], int n, int x);
-int sentinelLinearSearch(int A[], int n, int x);
-int recursiveLinearSearch(int A[], int n, int i, int x);
-int binarySearch(int A[], int n, int x);
-int recursiveBinarySearch(int A[], int p, int r, int x);
+int linearSearch(int array[], int n, int x);
+int betterLinearSearch(int array[], int n, int x);
+int sentinelLinearSearch(int array[], int n, int x);
+int recursiveLinearSearch(int array[], int n, int i, int x);
+int binarySearch(int array[], int n, int x);
+int recursiveBinarySearch(int array[], int p, int r, int x);
 
 int main(){
 
@@ -40,58 +40,58 @@ int main(){
 
 }
 
-int linearSearch(int A[], int n, int x){
+int linearSearch(int array[], int n, int x){
     int answer = -1;
     for (int i = 0; i < n; i++){
-        if (A[i] == x){
+        if (array[i] == x){
             answer = i;
         }
     }
     return answer;
 }
 
-int betterLinearSearch(int A[], int n, int x){
+int betterLinearSearch(int array[], int n, int x){
     int answer = -1;
     for (int i = 0; i < n; i++){
-        if (A[i] == x){
+        if (array[i] == x){
             return i;
         }
     }
     return answer;
 }
 
-int sentinelLinearSearch(int A[], int n, int x){
-    int last = A[n - 1];
-    A[n - 1] = x;
+int sentinelLinearSearch(int array[], int n, int x){
+    int last = array[n - 1];
+    array[n - 1] = x;
     int i = 0;
-    while (A[i] != x){
+    while (array[i] != x){
         i++;
     }
-    A[n - 1] = last;
-    if (i < n - 1 || A[n - 1] == x){
+    array[n - 1] = last;
+    if (i < n - 1 || array[n - 1] == x){
         return i;
     }
     return -1;
 }
 
-int recursiveLinearSearch(int A[], int n, int i, int x){
+int recursiveLinearSearch(int array[], int n, int i, int x){
     if (i > n - 1){
         return -1;
     }
-    else if (A[i] == x){
+    else if (array[i] == x){
         return i;
     }
-    return recursiveLinearSearch(A, n, i + 1, x);
+    return recursiveLinearSearch(array, n, i + 1, x);
 }
 
-int binarySearch(int A[], int n, int x){
+int binarySearch(int array[], int n, int x){
     int p = 0;
     int r = n;
     while (p <= r){
         int q = (p + r) / 2;
-        if (A[q] == x){
+        if (array[q] == x){
             return q;
-        } else if (A[q] > x){
+        } else if (array[q] > x){
             r = q - 1;
         } else {
             p = q + 1;
@@ -100,16 +100,16 @@ int binarySearch(int A[], int n, int x){
     return -1;
 }
 
-int recursiveBinarySearch(int A[], int p, int r, int x){
+int recursiveBinarySearch(int array[], int p, int r, int x){
     if (p > r){
         return -1;
     }
     int q = (p + r) / 2;
-    if (A[q] == x){
+    if (array[q] == x){
         return q;
-    } else if (A[q] > x){
-        return recursiveBinarySearch(A, p, q - 1, x);
+    } else if (array[q] > x){
+        return recursiveBinarySearch(array, p, q - 1, x);
     } else {
-        return recursiveBinarySearch(A, q + 1, r, x);
+        return recursiveBinarySearch(array, q + 1, r, x);
     }
 }
