@@ -1,3 +1,4 @@
 # algorithmsUnlocked
 
-An implementation of algorithms based on the book "Algorithms Unlocked"
+This is a study project. I'm trying to implement in C the algorithms presented on the book "Algorithms Unlocked" by Thomas H. Cormen.
+
